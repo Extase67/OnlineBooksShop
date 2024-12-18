@@ -13,8 +13,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 @RequiredArgsConstructor
 public class BookRepositoryImpl implements BookRepository {
-
     private final SessionFactory sessionFactory;
+
     @Override
     public Book save(final Book book) {
         Transaction transaction = null;
@@ -34,12 +34,9 @@ public class BookRepositoryImpl implements BookRepository {
     @Override
     public List<Book> findAll() {
         try (Session session = sessionFactory.openSession()) {
-            CriteriaQuery<Book> criteriaQuery = session.getCriteriaBuilder()
-                    .createQuery(Book.class);
-            criteriaQuery.from(Book.class);
-            return session.createQuery(criteriaQuery).getResultList();
+            return session.createQuery("from Book", Book.class).list();
         } catch (Exception e) {
-            throw new DataProcessingException("Can't find all books", e);
+            throw new DataProcessingException("Can`t find all books", e);
         }
     }
 }

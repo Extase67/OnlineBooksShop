@@ -8,15 +8,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.math.BigDecimal;
-
-/**
- * Entry point for the Online Book Store application.
- * Implements {@link CommandLineRunner}
- * to initialize the database with sample data.
- */
+import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
-public class BookStoreApplication implements CommandLineRunner {
+public class BookStoreApplication {
     private static final double FIRST_BOOK_PRICE = 19.99;
     private static final double SECOND_BOOK_PRICE = 29.99;
 
@@ -28,30 +23,32 @@ public class BookStoreApplication implements CommandLineRunner {
 
     }
 
-    @Override
-    public void run(final String... args) {
-        Book firstBook = new Book();
-        firstBook.setTitle("Book 1");
-        firstBook.setAuthor("Author 1");
-        firstBook.setIsbn("1234567890");
-        firstBook.setPrice(BigDecimal.valueOf(FIRST_BOOK_PRICE));
-        firstBook.setDescription("Description 1");
-        firstBook.setCoverImage("cover1.jpg");
+    @Bean
+    public CommandLineRunner commandLineRunner() {
+        return args -> {
+            Book firstBook = new Book();
+            firstBook.setTitle("Book 1");
+            firstBook.setAuthor("Author 1");
+            firstBook.setIsbn("1234567890");
+            firstBook.setPrice(BigDecimal.valueOf(FIRST_BOOK_PRICE));
+            firstBook.setDescription("Description 1");
+            firstBook.setCoverImage("cover1.jpg");
 
-        Book secondBook = new Book();
-        secondBook.setTitle("Book 2");
-        secondBook.setAuthor("Author 2");
-        secondBook.setIsbn("0987654321");
-        secondBook.setPrice(BigDecimal.valueOf(SECOND_BOOK_PRICE));
-        secondBook.setDescription("Description 2");
-        secondBook.setCoverImage("cover2.jpg");
+            Book secondBook = new Book();
+            secondBook.setTitle("Book 2");
+            secondBook.setAuthor("Author 2");
+            secondBook.setIsbn("0987654321");
+            secondBook.setPrice(BigDecimal.valueOf(SECOND_BOOK_PRICE));
+            secondBook.setDescription("Description 2");
+            secondBook.setCoverImage("cover2.jpg");
 
-        bookService.save(firstBook);
-        bookService.save(secondBook);
+            bookService.save(firstBook);
+            bookService.save(secondBook);
 
-        System.out.println("Books in the database:");
-        bookService.findAll().forEach(book ->
-                System.out.println(book.getTitle()
-                        + " by " + book.getAuthor()));
+            System.out.println("Books in the database:");
+            bookService.findAll().forEach(book ->
+                    System.out.println(book.getTitle()
+                            + " by " + book.getAuthor()));
+        };
     }
 }

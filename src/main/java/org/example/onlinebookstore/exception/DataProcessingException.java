@@ -2,12 +2,11 @@ package org.example.onlinebookstore.exception;
 
 public class DataProcessingException extends RuntimeException {
 
-    public DataProcessingException(final String message) {
+    public DataProcessingException(String message) {
         super(message);
     }
 
-    public DataProcessingException(final String message,
-                                   final Throwable cause) {
+    public DataProcessingException(String message, Throwable cause) {
         super(message, cause);
     }
 }
