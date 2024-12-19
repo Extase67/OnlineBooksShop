@@ -1,6 +1,5 @@
 package org.example.onlinebookstore.repository;
 
-import jakarta.persistence.criteria.CriteriaQuery;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.example.onlinebookstore.exception.DataProcessingException;
